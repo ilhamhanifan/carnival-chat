@@ -1,4 +1,9 @@
 version: '3.9'
 services:
-  nginx:
-    
+  chat-server:
+    build:
+      context: chat-server
+      dockerfile: Dockerfile
+    ports:
+      - 80:3000
+
