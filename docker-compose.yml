@@ -1,9 +1,26 @@
 version: '3.9'
 services:
-  chat-server:
+  chatserver:
     build:
       context: chat-server
       dockerfile: Dockerfile
     ports:
       - 80:3000
+
+  authpostgres:
+    image: postgres:14-alpine
+    restart: always
+    env_file:
+      - ./auth-server/sql/postgres.env
+    volumes:
+      - ./auth-server/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5432:5432
+
+  authadminer:
+    image: adminer:4-standalone
+    restart: always
+    ports:
+      - 8080:8080
+
 
